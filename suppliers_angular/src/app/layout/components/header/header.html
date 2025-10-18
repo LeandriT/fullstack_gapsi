@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <span class="app-title">e-Commerce Gapsi</span>
+  <span class="spacer"></span>
+
+  <!-- Botones de navegación -->
+  <button
+    mat-button
+    (click)="navigateToWelcome()"
+    class="nav-button"
+    [class.active]="isActive('/')">
+    <mat-icon>home</mat-icon>
+    Inicio
+  </button>
+
+  <button
+    mat-button
+    (click)="navigateToSuppliers()"
+    class="nav-button"
+    [class.active]="isActive('/suppliers')">
+    <mat-icon>business</mat-icon>
+    Proveedores
+  </button>
+
+  <button mat-icon-button>
+    <mat-icon>more_vert</mat-icon>
+  </button>
+</mat-toolbar>

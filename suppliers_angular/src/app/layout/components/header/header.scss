@@ -1,0 +1,49 @@
+.header-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .app-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 16px;
+  }
+  
+  .nav-button {
+    margin-left: 8px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+    
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    &.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      font-weight: bold;
+      
+      mat-icon {
+        color: #ffeb3b; // Amarillo para destacar el icono activo
+      }
+    }
+  }
+  
+  mat-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }

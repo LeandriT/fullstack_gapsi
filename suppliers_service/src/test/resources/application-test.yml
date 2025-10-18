@@ -1,0 +1,18 @@
+app:
+  info:
+    message: "Servicio de Proveedores - Modo Prueba"
+    version: "1.0.0-TEST"
+    author: "Equipo de Desarrollo - Pruebas"
+
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  sql:
+    init:
+      mode: never
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        globally_quoted_identifiers: false

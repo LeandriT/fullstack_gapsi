@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "d3306b0c-1100-42c1-b318-dc616bbd94e9",
+		"name": "GAPSI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1378372"
+	},
+	"item": [
+		{
+			"name": "Bienvenido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:8080/api/v1/version/info",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"version",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:8080/api/v1/suppliers",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"suppliers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parsea el cuerpo del response como JSON",
+							"let responseData = pm.response.json();",
+							"",
+							"// Verifica que el UUID exista",
+							"if (responseData.uuid) {",
+							"    // Guarda el UUID en una variable de entorno",
+							"    pm.environment.set(\"supplier_uuid\", responseData.uuid);",
+							"    console.log(\"✅ UUID guardado en entorno:\", responseData.uuid);",
+							"} else {",
+							"    console.warn(\"⚠️ No se encontró UUID en el response\");",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Distribuidora ABC3\",\n  \"business_name\": \"Distribuidora ABC S.A. de C.V.\",\n  \"address\": \"Calle Comercial 456, Zona Industrial, Guadalajara, Jalisco\",\n  \"email\": \"ventas@distribuidoraabc.com\",\n  \"phone\": \"33 4567-8901\",\n  \"status\": \"ACTIVE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:8080/api/v1/suppliers",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"suppliers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Distribuidora ABC-DEF\",\n  \"business_name\": \"Distribuidora ABC S.A. de C.V. DIV\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:8080/api/v1/suppliers/{{supplier_uuid}}",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"suppliers",
+						"{{supplier_uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizacion Parcial",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"ACTIVE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:8080/api/v1/suppliers/{{supplier_uuid}}",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"suppliers",
+						"{{supplier_uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:8080/api/v1/suppliers/{{supplier_uuid}}",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"suppliers",
+						"{{supplier_uuid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

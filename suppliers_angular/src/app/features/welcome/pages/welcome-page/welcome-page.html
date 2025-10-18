@@ -1,0 +1,13 @@
+<div class="welcome-container" *ngIf="version$ | async as version">
+
+  <div class="content">
+    <img src="logo.png" alt="Logo Gapsi" width="120"/>
+    <h2>{{ version.message }}</h2>
+
+    <button mat-raised-button color="primary" (click)="continuar()">Continuar</button>
+  </div>
+
+  <footer>
+    <span>versión {{ version.version }}</span>
+  </footer>
+</div>

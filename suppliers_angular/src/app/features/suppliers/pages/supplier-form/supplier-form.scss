@@ -1,0 +1,41 @@
+.supplier-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+
+  .loading-container {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+}
+
+.supplier-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+
+  .full-width {
+    width: 100%;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    button {
+      min-width: 120px;
+    }
+  }
+}
