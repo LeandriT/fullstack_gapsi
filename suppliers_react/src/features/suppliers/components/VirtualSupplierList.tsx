@@ -34,6 +34,19 @@ interface VirtualSupplierListProps {
 
 const PAGE_SIZE = 10; // Tamaño de página fijo
 
+/**
+ * Compound Component Pattern Implementation
+ * 
+ * Este componente implementa el patrón Compound Component que combina múltiples
+ * responsabilidades en una interfaz cohesiva: lista virtual, scroll infinito,
+ * acciones de usuario y manejo de estado.
+ * 
+ * Beneficios:
+ * - Componente autocontenido con múltiples funcionalidades
+ * - Interfaz cohesiva y fácil de usar
+ * - Encapsulación de lógica compleja
+ * - Reutilización de componentes internos
+ */
 export default function VirtualSupplierList({
   onEdit,
   onToggleStatus,

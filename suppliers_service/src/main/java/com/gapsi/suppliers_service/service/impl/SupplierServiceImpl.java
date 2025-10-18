@@ -18,6 +18,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service Layer Pattern Implementation
+ * 
+ * Este patrón separa la lógica de negocio del controlador y centraliza
+ * las operaciones complejas manteniendo la cohesión del sistema.
+ * 
+ * Beneficios:
+ * - Separación clara de responsabilidades
+ * - Lógica de negocio reutilizable
+ * - Facilita testing unitario
+ * - Manejo centralizado de transacciones
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor

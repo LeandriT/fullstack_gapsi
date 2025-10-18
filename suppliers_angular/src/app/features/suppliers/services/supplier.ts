@@ -8,6 +8,18 @@ import { SupplierRequest } from '../models/supplier_request.model';
 import { SupplierStatus } from '../../../core/enums/status.enum';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 
+/**
+ * Service Pattern Implementation
+ * 
+ * Este patrón centraliza la lógica de comunicación con APIs y proporciona
+ * una interfaz consistente para operaciones HTTP en toda la aplicación.
+ * 
+ * Beneficios:
+ * - Encapsula la lógica de peticiones HTTP
+ * - Manejo centralizado de errores
+ * - Reutilización de código
+ * - Facilita testing con mocks
+ */
 @Injectable({
   providedIn: 'root'
 })

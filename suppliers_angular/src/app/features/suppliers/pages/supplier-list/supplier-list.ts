@@ -14,6 +14,18 @@ import { Router } from '@angular/router';
 import { SupplierStatus } from '../../../../core/enums/status.enum';
 import { CommonModule } from '@angular/common';
 
+/**
+ * Observer Pattern Implementation with RxJS
+ * 
+ * Este componente implementa el patrón Observer usando RxJS para programación reactiva.
+ * Permite suscribirse a cambios de estado y reaccionar automáticamente a eventos.
+ * 
+ * Beneficios:
+ * - Programación reactiva y asíncrona
+ * - Manejo automático de suscripciones
+ * - Composición de operadores RxJS
+ * - Mejor manejo de errores
+ */
 @Component({
   selector: 'app-supplier-list',
   templateUrl: './supplier-list.html',

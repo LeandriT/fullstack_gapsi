@@ -3,6 +3,18 @@ import { useCallback } from 'react';
 import { AxiosError } from 'axios';
 import { ErrorHandlerService } from '../services/error-handler.service';
 
+/**
+ * Custom Hooks Pattern Implementation
+ * 
+ * Este patrón encapsula lógica reutilizable de manejo de errores en un hook personalizado.
+ * Proporciona una interfaz consistente para notificaciones y manejo de errores en toda la app.
+ * 
+ * Beneficios:
+ * - Lógica reutilizable entre componentes
+ * - Encapsulación de estado y efectos
+ * - Interfaz consistente para manejo de errores
+ * - Facilita testing y mantenimiento
+ */
 export function useErrorHandler() {
   const { enqueueSnackbar } = useSnackbar();
 

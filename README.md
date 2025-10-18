@@ -84,6 +84,158 @@ Este proyecto implementa un sistema completo de gestión de proveedores que incl
 - **Notistack** para notificaciones
 - **React Query** para gestión de estado
 
+## 🏗️ Patrones de Diseño Implementados
+
+### Backend (Spring Boot)
+
+#### 1. **Repository Pattern** 📁
+```java
+// suppliers_service/src/main/java/com/gapsi/suppliers_service/repository/SupplierRepository.java
+@Repository
+public interface SupplierRepository extends JpaRepository<Supplier, UUID> {
+    // Patrón Repository: Abstrae el acceso a datos
+    // Encapsula la lógica de persistencia y proporciona una interfaz limpia
+    boolean existsByNameIgnoreCase(String name);
+    boolean existsByNameIgnoreCaseAndUuidNot(String name, UUID uuid);
+}
+```
+
+#### 2. **Service Layer Pattern** ⚙️
+```java
+// suppliers_service/src/main/java/com/gapsi/suppliers_service/service/impl/SupplierServiceImpl.java
+@Service
+@Transactional
+public class SupplierServiceImpl implements SupplierService {
+    // Patrón Service Layer: Separa la lógica de negocio del controlador
+    // Centraliza operaciones complejas y mantiene la cohesión
+    private final SupplierRepository repository;
+    private final SupplierMapper mapper;
+    
+    @Override
+    public SupplierResponse create(SupplierRequest request) {
+        // Lógica de negocio encapsulada en el servicio
+        validateCreate(request);
+        var supplier = mapper.toModel(request);
+        repository.save(supplier);
+        return mapper.toResponse(supplier);
+    }
+}
+```
+
+### Frontend Angular
+
+#### 1. **Service Pattern** 🔧
+```typescript
+// suppliers_angular/src/app/features/suppliers/services/supplier.ts
+@Injectable({
+  providedIn: 'root'
+})
+export class SupplierService {
+  // Patrón Service: Centraliza la lógica de comunicación con APIs
+  // Proporciona una interfaz consistente para operaciones HTTP
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService
+  ) {}
+
+  getSuppliers(page: number = 0, size: number = 10): Observable<PageResponse<SupplierResponse>> {
+    // Encapsula la lógica de peticiones HTTP y manejo de errores
+    return this.http.get<PageResponse<SupplierResponse>>(`${this.apiUrl}/suppliers`, {
+      params: { page: page.toString(), size: size.toString() }
+    }).pipe(
+      catchError(error => this.errorHandler.handleError(error))
+    );
+  }
+}
+```
+
+#### 2. **Observer Pattern con RxJS** 👁️
+```typescript
+// suppliers_angular/src/app/features/suppliers/pages/supplier-list/supplier-list.ts
+export class SupplierList implements OnInit {
+  // Patrón Observer: Implementado con RxJS para programación reactiva
+  // Permite suscribirse a cambios de estado y reaccionar automáticamente
+  ngOnInit(): void {
+    // Observable que emite cambios en la paginación
+    this.loadSuppliers();
+    
+    // Suscripción reactiva a cambios de datos
+    this.supplierService.getSuppliers(this.page, this.size)
+      .pipe(
+        tap(response => this.pageResponse = response),
+        catchError(error => this.handleError(error))
+      )
+      .subscribe();
+  }
+}
+```
+
+### Frontend React
+
+#### 1. **Custom Hooks Pattern** 🎣
+```typescript
+// suppliers_react/src/core/hooks/useErrorHandler.ts
+export const useErrorHandler = () => {
+  // Patrón Custom Hook: Encapsula lógica reutilizable de manejo de errores
+  // Proporciona una interfaz consistente para notificaciones y errores
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleError = (
+    error: AxiosError,
+    defaultMessage: string = 'Ocurrió un error inesperado.',
+    options?: HandleErrorOptions
+  ) => {
+    // Lógica centralizada de manejo de errores
+    const message = ErrorHandlerService.extractErrorMessage(error, defaultMessage);
+    enqueueSnackbar(message, { variant: 'error' });
+  };
+
+  return { handleError, handleSuccess, handleInfo, handleWarning };
+};
+```
+
+#### 2. **Compound Component Pattern** 🧩
+```typescript
+// suppliers_react/src/features/suppliers/components/VirtualSupplierList.tsx
+export default function VirtualSupplierList({
+  onEdit,
+  onToggleStatus,
+  onDelete,
+}: VirtualSupplierListProps) {
+  // Patrón Compound Component: Componente compuesto que maneja múltiples responsabilidades
+  // Combina lista virtual, scroll infinito y acciones en una interfaz cohesiva
+  
+  // Componente interno que maneja el scroll infinito
+  const handleScroll = useCallback((event: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
+    if (scrollHeight - scrollTop - clientHeight < threshold) {
+      loadMoreData(); // Carga automática de más datos
+    }
+  }, [loadMoreData]);
+
+  return (
+    <Box>
+      {/* Header compuesto con título y contador */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h4">Lista Virtual de Proveedores</Typography>
+        <Typography>{suppliers.length} proveedores cargados</Typography>
+      </Box>
+      
+      {/* Lista virtual con scroll infinito */}
+      <Box onScroll={handleScroll}>
+        <List>
+          {suppliers.map((supplier) => (
+            <ListItem key={supplier.uuid}>
+              {/* Contenido del item con acciones */}
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </Box>
+  );
+}
+```
+
 ## 📁 Estructura del Proyecto
 
 ```
